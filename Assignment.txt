@@ -1,0 +1,26 @@
+1-Calculate the performance for the different tip speed ratios for the axial flow case.
+
+2-Optional: Calculate the performance for the different yawed flow cases at tip speed ratio 8 (eight).
+
+3-Optional: For a given CT=0.75, change the pitch or the chord distribution or the twist distribution in order to maximise the Cp in axial flow at tip speed ratio 8 (eight). You can choose your own design approach. Compare with the expected result from actuator disk theory. Discuss the rationale for your design, including the twist and chord distributions.
+
+For this assignment you need to submit the following:
+
+    A short report, containing:
+        SHORT introduction (1 page)
+        A flowchart of your code (1 page)
+        Main assumptions with an explanation of their impact (max. 1 page)
+        Plots with explanation of results (alpha/inflow/a/a’/Ct/Cn/Cq vs r/R)
+            Spanwise distribution of angle of attack and inflow angle
+            Spanwise distribution of axial and azimuthal inductions
+            Spanwise distribution of thrust and azimuthal loading
+            Total thrust and torque versus tip-speed ratio/advance ratio
+            For the cases of yawed rotor (optional), also plot the azimuthal variation (suggestion: polar contour plot)
+        Plots with explanation of the influence of the tip correction
+        (optional): Plots with explanation of influence of number of annuli, spacing method (constant, cosine) and convergence history for total thrust.
+        (optional): Explanation of the design approach used for maximizing the Cp or efficiency
+        (optional): Plots with explanation of the new designs
+        Plot the distribution of stagnation pressure as a function of radius at four locations: infinity upwind, at the rotor (upwind side), at the rotor (downwind side), infinity downwind.
+        (optional): Plot a representation of the system of circulation. Discuss the generation and release of vorticity in relation to the loading and circulation over the blade.
+        Discuss the operational point of the airfoil in terms of lift and drag, and the relation between the distribution of lift coefficient and chord (choose one case, not necessary to do all cases)
+        SHORT discussion/conclusion, highlighting the impact of operational variables and BEM model assumptions on the results.
