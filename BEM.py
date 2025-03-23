@@ -16,9 +16,9 @@ delta_r_R = 0.01
 r_R = np.arange(0.2, 1+delta_r_R/2, delta_r_R)
 
 # blade shape
-pitch = 2 # degrees
+pitch = -2 # degrees
 chord_distribution = 3*(1-r_R)+1 # meters
-twist_distribution = -14*(1-r_R)+pitch # degrees
+twist_distribution = 14*(1-r_R)+pitch # degrees
 
 # flow conditions
 u_inf = 10 
@@ -60,7 +60,10 @@ print('Total Thrust:', T)
 print('Total Power:', P)
 print('Total Torque:', Torque)
 
-plot = 0
+plt.plot(r_R, twist_distribution)
+plt.show()
+
+plot = 1
 if plot:
     fig_alpha = plt.figure(figsize=(12, 6))
     plt.title('Angle of attack and inflow angle over span')
