@@ -71,7 +71,7 @@ plt.legend()
 plt.show()
 
 fig_alpha = plt.figure(figsize=(12, 6))
-plt.title('Induction factors over span')
+plt.title('Normal and azimuthal loading')
 plt.plot(r_R[1:], results[:, 3], '-', label='Normal loading')
 plt.plot(r_R[1:], results[:, 4], '-', label='Azimuthal loading')
 plt.grid()
