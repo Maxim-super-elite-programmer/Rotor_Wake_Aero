@@ -41,6 +41,8 @@ for i in range(len(r_R)-1):
     
     results[i,:], alpha[i], phi[i] = solve_stream(u_inf, r_R[i], r_R[i+1], root_R, tip_R , Omega, Radius, N_blades, chord, twist, polar_alpha, polar_cl, polar_cd )
 
+phi = phi *180/np.pi
+
 # plot results
 areas = (r_R[1:]**2-r_R[:-1]**2)*np.pi*Radius**2
 dr = (r_R[1:]-r_R[:-1])*Radius
@@ -59,9 +61,6 @@ Torque = CTorque * 0.5 * 1.225 * u_inf**2 * (2 * np.pi * Radius**2)
 print('Total Thrust:', T)
 print('Total Power:', P)
 print('Total Torque:', Torque)
-
-plt.plot(r_R, twist_distribution)
-plt.show()
 
 plot = 1
 if plot:
