@@ -22,7 +22,7 @@ twist_distribution = -14*(1-r_R)+pitch # degrees
 
 # flow conditions
 u_inf = 10 
-TSR = 6 # tip speed ratio
+TSR = 10 # tip speed ratio
 Radius = 50
 Omega = u_inf*TSR/Radius
 N_blades = 3
@@ -32,12 +32,14 @@ root_R =  0.2
 
 # solve BEM model
 results =np.zeros([len(r_R)-1,6]) 
+alpha = np.zeros([len(r_R-1)])
+phi = np.zeros_like(alpha)
 
 for i in range(len(r_R)-1):
     chord = np.interp((r_R[i]+r_R[i+1])/2, r_R, chord_distribution)
     twist = np.interp((r_R[i]+r_R[i+1])/2, r_R, twist_distribution)
     
-    results[i,:] = solve_stream(u_inf, r_R[i], r_R[i+1], root_R, tip_R , Omega, Radius, N_blades, chord, twist, polar_alpha, polar_cl, polar_cd )
+    results[i,:], alpha[i], phi[i] = solve_stream(u_inf, r_R[i], r_R[i+1], root_R, tip_R , Omega, Radius, N_blades, chord, twist, polar_alpha, polar_cl, polar_cd )
 
 # plot results
 areas = (r_R[1:]**2-r_R[:-1]**2)*np.pi*Radius**2
@@ -48,7 +50,38 @@ CP = np.sum(dr*results[:,4]*results[:,2]*N_blades*Radius*Omega/(0.5*u_inf**3*np.
 print("CT is equal to:", CT)
 print("CP is equal to:", CP)
 
-plot = 1
+fig_alpha = plt.figure(figsize=(12, 6))
+plt.title('Angle of attack and inflow angle over span')
+plt.plot(r_R, alpha, '-', label=r'$\alpha$')
+plt.plot(r_R, phi, '-', label=r'$\phi$')
+plt.grid()
+plt.xlabel('r/R')
+plt.ylabel('DEG')
+plt.legend()
+plt.show()
+
+fig_alpha = plt.figure(figsize=(12, 6))
+plt.title('Induction factors over span')
+plt.plot(r_R[1:], results[:, 0], '-', label='Axial induction factor')
+plt.plot(r_R[1:], results[:, 1], '-', label='Tangential induction factor')
+plt.grid()
+plt.xlabel('r/R')
+plt.ylabel('-')
+plt.legend()
+plt.show()
+
+fig_alpha = plt.figure(figsize=(12, 6))
+plt.title('Induction factors over span')
+plt.plot(r_R[1:], results[:, 3], '-', label='Normal loading')
+plt.plot(r_R[1:], results[:, 4], '-', label='Azimuthal loading')
+plt.grid()
+plt.xlabel('r/R')
+plt.ylabel('N')
+plt.legend()
+plt.show()
+
+
+plot = 0
 if plot:
     fig1 = plt.figure(figsize=(12, 6))
     plt.title('Axial and tangential induction')
@@ -60,7 +93,7 @@ if plot:
     plt.show()
 
     fig1 = plt.figure(figsize=(12, 6))
-    plt.title(r'Normal and tagential force, non-dimensioned by $\frac{1}{2} \rho U_\infty^2 R$')
+    plt.title(r'Normal and tangential force, non-dimensioned by $\frac{1}{2} \rho U_\infty^2 R$')
     plt.plot(results[:,2], results[:,3]/(0.5*u_inf**2*Radius), '-', label=r'F_norm')
     plt.plot(results[:,2], results[:,4]/(0.5*u_inf**2*Radius), '-', label=r'F_tan')
     plt.grid()

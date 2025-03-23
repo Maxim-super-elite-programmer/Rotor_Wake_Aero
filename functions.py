@@ -25,7 +25,7 @@ def solve_stream(Uinf, r1_R, r2_R, rootradius_R, tipradius_R , Omega, Radius, NB
         Utan = (1+a_line)*Omega*r_R*Radius # tangential velocity at rotor
 
         # calculate loads in blade segment in 2D (N/m)
-        fnorm, ftan, gamma = blade_loading(Urotor, Utan, r_R,chord, twist, polar_alpha, polar_cl, polar_cd)
+        fnorm, ftan, gamma, alpha, phi = blade_loading(Urotor, Utan, r_R,chord, twist, polar_alpha, polar_cl, polar_cd)
         load3Daxial =fnorm*Radius*(r2_R-r1_R)*NBlades # 3D force in axial direction
 
         # // calculate thrust coefficient at the streamtube 
@@ -51,7 +51,7 @@ def solve_stream(Uinf, r1_R, r2_R, rootradius_R, tipradius_R , Omega, Radius, NB
             # print(i)
             break
 
-    return [a , a_line, r_R, fnorm , ftan, gamma]
+    return [a , a_line, r_R, fnorm , ftan, gamma], alpha, phi
 
 def blade_loading(vnorm, vtan, r_R, chord, twist, polar_alpha, polar_cl, polar_cd):
     """
@@ -67,7 +67,7 @@ def blade_loading(vnorm, vtan, r_R, chord, twist, polar_alpha, polar_cl, polar_c
     fnorm = lift*np.cos(inflowangle)+drag*np.sin(inflowangle)
     ftan = lift*np.sin(inflowangle)-drag*np.cos(inflowangle)
     gamma = 0.5*np.sqrt(vmag2)*cl*chord
-    return fnorm , ftan, gamma
+    return fnorm , ftan, gamma, alpha, inflowangle
 
 def prandtl_correction(r_R, rootradius_R, tipradius_R, TSR, NBlades, axial_induction):
     """
