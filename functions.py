@@ -45,6 +45,12 @@ def solve_stream(Uinf, r1_R, r2_R, rootradius_R, tipradius_R , Omega, Radius, NB
         a_line = ftan*NBlades/(2*np.pi*Uinf*(1-a)*Omega*2*(r_R*Radius)**2)
         a_line =a_line/Prandtl # correct estimate of azimuthal induction with Prandtl's correction
 
+        #// test convergence of solution, by checking convergence of axial induction
+        if (np.abs(a-a_new) < Erroriterations): 
+            # print("iterations")
+            # print(i)
+            break
+
     return [a , a_line, r_R, fnorm , ftan, gamma]
 
 def blade_loading(vnorm, vtan, r_R, chord, twist, polar_alpha, polar_cl, polar_cd):
