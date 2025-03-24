@@ -62,6 +62,7 @@ print('Total Thrust:', T)
 print('Total Power:', P)
 print('Total Torque:', Torque)
 print('torque BEM', Torque_blade_element)
+print('procentual difference:', 100 - Torque / Torque_blade_element * 100)
 
 plot = 0
 if plot:
