@@ -49,22 +49,19 @@ dr = (r_R[1:]-r_R[:-1])*Radius
 CT = np.sum(dr*results[:,3]*N_blades/(0.5*u_inf**2*np.pi*Radius**2))
 CP = np.sum(dr*results[:,4]*results[:,2]*N_blades*Radius*Omega/(0.5*u_inf**3*np.pi*Radius**2))
 Torque_blade_element = np.sum(dr * results[:, 4] * r_R[1:] * N_blades*Radius*Omega * 1.225)
-CQ = CP / TSR
 
 print("CT is equal to:", CT)
 print("CP is equal to:", CP)
 
 T = CT * 0.5 * 1.225 * u_inf**2 * (2 * np.pi * Radius**2)
 P = CP * 0.5 * 1.225 * u_inf**3 * (2 * np.pi * Radius**2)
-Torque = P / Omega
 
 print('Total Thrust:', T)
 print('Total Power:', P)
-print('Total Torque:', Torque)
 print('torque BEM', Torque_blade_element)
-print('procentual difference:', 100 - Torque / Torque_blade_element * 100)
 
-plot = 0
+
+plot = 1
 if plot:
     fig_alpha = plt.figure(figsize=(12, 6))
     plt.title('Angle of attack and inflow angle over span')
@@ -93,31 +90,5 @@ if plot:
     plt.grid()
     plt.xlabel('r/R')
     plt.ylabel('N')
-    plt.legend()
-    plt.show()
-
-    fig1 = plt.figure(figsize=(12, 6))
-    plt.title('Axial and tangential induction')
-    plt.plot(results[:,2], results[:,0], '-', label=r'$a$')
-    plt.plot(results[:,2], results[:,1], '-', label=r'$a^,$')
-    plt.grid()
-    plt.xlabel('r/R')
-    plt.legend()
-    plt.show()
-
-    fig1 = plt.figure(figsize=(12, 6))
-    plt.title(r'Normal and tangential force, non-dimensioned by $\frac{1}{2} \rho U_\infty^2 R$')
-    plt.plot(results[:,2], results[:,3]/(0.5*u_inf**2*Radius), '-', label=r'F_norm')
-    plt.plot(results[:,2], results[:,4]/(0.5*u_inf**2*Radius), '-', label=r'F_tan')
-    plt.grid()
-    plt.xlabel('r/R')
-    plt.legend()
-    plt.show()
-
-    fig1 = plt.figure(figsize=(12, 6))
-    plt.title(r'Circulation distribution, non-dimensioned by $\frac{\pi U_\infty^2}{\Omega * NBlades } $')
-    plt.plot(results[:,2], results[:,5]/(np.pi*u_inf**2/(N_blades*Omega)), '-', label=r'$\Gamma$')
-    plt.grid()
-    plt.xlabel('r/R')
     plt.legend()
     plt.show()
