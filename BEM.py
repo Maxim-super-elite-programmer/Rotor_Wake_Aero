@@ -48,15 +48,13 @@ areas = (r_R[1:]**2-r_R[:-1]**2)*np.pi*Radius**2
 dr = (r_R[1:]-r_R[:-1])*Radius
 CT = np.sum(dr*results[:,3]*N_blades/(0.5*u_inf**2*np.pi*Radius**2))
 CP = np.sum(dr*results[:,4]*results[:,2]*N_blades*Radius*Omega/(0.5*u_inf**3*np.pi*Radius**2))
-CTorque = np.sum(dr*results[:,4]*N_blades/(0.5*u_inf**2*np.pi*Radius**2))
 
 print("CT is equal to:", CT)
 print("CP is equal to:", CP)
-print('CTorque is equal to:', CTorque)
 
 T = CT * 0.5 * 1.225 * u_inf**2 * (2 * np.pi * Radius**2)
 P = CP * 0.5 * 1.225 * u_inf**3 * (2 * np.pi * Radius**2)
-Torque = CTorque * 0.5 * 1.225 * u_inf**2 * (2 * np.pi * Radius**2)
+Torque = P / Omega
 
 print('Total Thrust:', T)
 print('Total Power:', P)
