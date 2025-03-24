@@ -59,7 +59,7 @@ def blade_loading(vnorm, vtan, r_R, chord, twist, polar_alpha, polar_cl, polar_c
     """
     vmag2 = vnorm**2 + vtan**2
     inflowangle = np.arctan2(vnorm,vtan)
-    alpha = twist + inflowangle*180/np.pi
+    alpha = inflowangle*180/np.pi - twist
     cl = np.interp(alpha, polar_alpha, polar_cl)
     cd = np.interp(alpha, polar_alpha, polar_cd)
     lift = 0.5*vmag2*cl*chord
