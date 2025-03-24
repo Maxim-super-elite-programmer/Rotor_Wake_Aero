@@ -48,6 +48,8 @@ areas = (r_R[1:]**2-r_R[:-1]**2)*np.pi*Radius**2
 dr = (r_R[1:]-r_R[:-1])*Radius
 CT = np.sum(dr*results[:,3]*N_blades/(0.5*u_inf**2*np.pi*Radius**2))
 CP = np.sum(dr*results[:,4]*results[:,2]*N_blades*Radius*Omega/(0.5*u_inf**3*np.pi*Radius**2))
+Torque_blade_element = np.sum(dr * results[:, 4] * r_R[1:] * N_blades*Radius*Omega * 1.225)
+CQ = CP / TSR
 
 print("CT is equal to:", CT)
 print("CP is equal to:", CP)
@@ -59,8 +61,9 @@ Torque = P / Omega
 print('Total Thrust:', T)
 print('Total Power:', P)
 print('Total Torque:', Torque)
+print('torque BEM', Torque_blade_element)
 
-plot = 1
+plot = 0
 if plot:
     fig_alpha = plt.figure(figsize=(12, 6))
     plt.title('Angle of attack and inflow angle over span')
